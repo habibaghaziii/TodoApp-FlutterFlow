@@ -89,7 +89,7 @@ class _AddTasksWidgetState extends State<AddTasksWidget> {
               ],
             ),
             Text(
-              'Add Task',
+              'New Task',
               style: FlutterFlowTheme.of(context).headlineSmall.override(
                     fontFamily: 'Inter Tight',
                     letterSpacing: 0.0,
@@ -242,7 +242,7 @@ class _AddTasksWidgetState extends State<AddTasksWidget> {
                     ));
                 Navigator.pop(context);
               },
-              text: 'Add Task',
+              text: 'New Task',
               icon: const Icon(
                 Icons.add,
                 size: 30.0,
