@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "529782351471",
+    "project_id": "todo-fem6wa",
+    "storage_bucket": "todo-fem6wa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529782351471:android:7244729a30407c14cccf9a",
+        "android_client_info": {
+          "package_name": "com.mycompany.todo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-Sbxm7Y7-T2AmOe3Le5cOYYtT45wX_j8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
