@@ -106,7 +106,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         )
                         .where(
                           'completed',
-                          isEqualTo: false,
+                          isEqualTo: true,
                         ),
                   ),
                   builder: (context, snapshot) {
@@ -160,7 +160,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                             checkAction: () async {
                               await listViewTasksRecord.reference
                                   .update(createTasksRecordData(
-                                completed: false,
+                                completed: true,
                               ));
                             },
                           ),

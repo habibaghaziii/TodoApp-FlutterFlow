@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/verify_email_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -82,7 +83,7 @@ class _LoginWidgetState extends State<LoginWidget>
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.asset(
-                        'assets/images/Screenshot_2024-09-23_at_11.06.33_AM.png',
+                        'assets/images/logo-black.png',
                         width: 120.0,
                         fit: BoxFit.contain,
                       ),
@@ -149,6 +150,11 @@ class _LoginWidgetState extends State<LoginWidget>
                                             const Duration(milliseconds: 2000),
                                             () => safeSetState(() {}),
                                           ),
+                                          onFieldSubmitted: (_) async {
+                                            FFAppState().to = _model
+                                                .signupEmailTextController.text;
+                                            safeSetState(() {});
+                                          },
                                           autofocus: false,
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
@@ -736,7 +742,7 @@ class _LoginWidgetState extends State<LoginWidget>
                                 return;
                               }
 
-                              context.goNamedAuth('tasks', context.mounted);
+                              context.goNamedAuth('completed', context.mounted);
                             },
                             text: 'Login',
                             options: FFButtonOptions(
@@ -765,6 +771,7 @@ class _LoginWidgetState extends State<LoginWidget>
                         if (_model.tabBarCurrentIndex == 0)
                           FFButtonWidget(
                             onPressed: () async {
+                              await authManager.refreshUser();
                               if (_model.formKey.currentState == null ||
                                   !_model.formKey.currentState!.validate()) {
                                 return;
@@ -802,6 +809,29 @@ class _LoginWidgetState extends State<LoginWidget>
                                     ),
                                     createdTime: getCurrentTimestamp,
                                   ));
+
+                              if (currentUserEmailVerified == true) {
+                                context.goNamedAuth(
+                                    'onboarding', context.mounted);
+                              } else {
+                                await showModalBottomSheet(
+                                  isScrollControlled: true,
+                                  backgroundColor: Colors.transparent,
+                                  enableDrag: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return GestureDetector(
+                                      onTap: () =>
+                                          FocusScope.of(context).unfocus(),
+                                      child: Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: const VerifyEmailWidget(),
+                                      ),
+                                    );
+                                  },
+                                ).then((value) => safeSetState(() {}));
+                              }
 
                               context.goNamedAuth(
                                   'onboarding', context.mounted);

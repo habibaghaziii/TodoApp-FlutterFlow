@@ -28,8 +28,11 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
     super.initState();
     _model = createModel(context, () => OnboardingModel());
 
-    _model.textController ??= TextEditingController();
-    _model.textFieldFocusNode ??= FocusNode();
+    _model.textController1 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
+
+    _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -62,14 +65,18 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Profile',
-                        textAlign: TextAlign.center,
-                        style:
-                            FlutterFlowTheme.of(context).headlineSmall.override(
-                                  fontFamily: 'Inter Tight',
-                                  letterSpacing: 0.0,
-                                ),
+                      Align(
+                        alignment: const AlignmentDirectional(-1.0, -1.0),
+                        child: Text(
+                          'Profile',
+                          textAlign: TextAlign.center,
+                          style: FlutterFlowTheme.of(context)
+                              .headlineSmall
+                              .override(
+                                fontFamily: 'Inter Tight',
+                                letterSpacing: 0.0,
+                              ),
+                        ),
                       ),
                       InkWell(
                         splashColor: Colors.transparent,
@@ -194,10 +201,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                       SizedBox(
                         width: double.infinity,
                         child: TextFormField(
-                          controller: _model.textController,
-                          focusNode: _model.textFieldFocusNode,
+                          controller: _model.textController1,
+                          focusNode: _model.textFieldFocusNode1,
                           onChanged: (_) => EasyDebounce.debounce(
-                            '_model.textController',
+                            '_model.textController1',
                             const Duration(milliseconds: 2000),
                             () => safeSetState(() {}),
                           ),
@@ -254,10 +261,10 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                 .secondaryBackground,
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 24.0, 26.0, 24.0, 26.0),
-                            suffixIcon: _model.textController!.text.isNotEmpty
+                            suffixIcon: _model.textController1!.text.isNotEmpty
                                 ? InkWell(
                                     onTap: () async {
-                                      _model.textController?.clear();
+                                      _model.textController1?.clear();
                                       safeSetState(() {});
                                     },
                                     child: const Icon(
@@ -276,7 +283,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                                   ),
                           keyboardType: TextInputType.name,
                           cursorColor: FlutterFlowTheme.of(context).primaryText,
-                          validator: _model.textControllerValidator
+                          validator: _model.textController1Validator
                               .asValidator(context),
                         ),
                       ),
@@ -359,6 +366,96 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                           borderRadius: BorderRadius.circular(24.0),
                         ),
                       ),
+                      SizedBox(
+                        width: double.infinity,
+                        child: TextFormField(
+                          controller: _model.textController2,
+                          focusNode: _model.textFieldFocusNode2,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController2',
+                            const Duration(milliseconds: 2000),
+                            () => safeSetState(() {}),
+                          ),
+                          autofocus: false,
+                          textInputAction: TextInputAction.done,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Inter Tight',
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            hintText: 'Address...',
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Inter Tight',
+                                  fontSize: 18.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Color(0xFFA1DB90),
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 1.0,
+                              ),
+                              borderRadius: BorderRadius.circular(24.0),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                24.0, 26.0, 24.0, 26.0),
+                            suffixIcon: _model.textController2!.text.isNotEmpty
+                                ? InkWell(
+                                    onTap: () async {
+                                      _model.textController2?.clear();
+                                      safeSetState(() {});
+                                    },
+                                    child: const Icon(
+                                      Icons.clear,
+                                      size: 24.0,
+                                    ),
+                                  )
+                                : null,
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Inter',
+                                    fontSize: 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                          keyboardType: TextInputType.streetAddress,
+                          cursorColor: FlutterFlowTheme.of(context).primaryText,
+                          validator: _model.textController2Validator
+                              .asValidator(context),
+                        ),
+                      ),
                     ].divide(const SizedBox(height: 24.0)),
                   ),
                 ),
@@ -370,7 +467,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget> {
                   child: FFButtonWidget(
                     onPressed: () async {
                       await currentUserReference!.update(createUsersRecordData(
-                        displayName: _model.textController.text,
+                        displayName: _model.textController1.text,
                         birthday: _model.datePicked,
                       ));
 
